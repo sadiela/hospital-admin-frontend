@@ -4,6 +4,8 @@ import {Routes, Route, Link } from "react-router-dom";
 import CreateUser from "./components/create-user.component";
 import Users from "./components/users.component";
 import DeleteUser from './components/delete-user.component';
+import Devices from './components/devices.component';
+import ManageDevices from './components/manage-devices.component';
 
 
 function App() {
@@ -11,7 +13,7 @@ function App() {
     <div className="App">
       <header>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-          <a className="navbar-brand">Hospital Application Admin Page</a>
+          <a className="navbar-brand">Hospital Application Admin Page!</a>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
@@ -22,6 +24,12 @@ function App() {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to={"/delete-user"}>Delete User</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={"/devices"}>Devices</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={"/manage-devices"}>Manage Devices</Link>
               </li>
             </ul>
           </div>
@@ -35,6 +43,8 @@ function App() {
               <Route path="/create-user" element={<CreateUser/>} />
               <Route path="/users" element={<Users/>} />
               <Route path="/delete-user" element={<DeleteUser/>} />
+              <Route path="/devices" element={<Devices/>} />
+              <Route path="/manage-devices" element={<ManageDevices/>} />
             </Routes>
           </div>
         </div>
@@ -72,5 +82,4 @@ export default App;
     </div>
   )
 }
-
-export default App*/
+*/
