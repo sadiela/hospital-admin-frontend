@@ -1,85 +1,66 @@
-import React, {useState, useEffect} from 'react'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {Routes, Route, Link } from "react-router-dom";
-import CreateUser from "./components/create-user.component";
-import Users from "./components/users.component";
-import DeleteUser from './components/delete-user.component';
-import Devices from './components/devices.component';
-import ManageDevices from './components/manage-devices.component';
-
+import {useState} from 'react';
+//import './App.css';
+import GoogleLogin from 'react-google-login'
+import LoggedIn from './LoggedIn';
 
 function App() {
+
+  const admin_list = ['sadiela@bu.edu']
+
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem('loginData')
+    ? JSON.parse(localStorage.getItem('loginData'))
+    : null
+  )
+
+  const handleFailure = (result) => {
+    alert(result);
+  }
+
+  const handleLogin = async (googleData) => {
+    console.log(googleData)
+    console.log(googleData.Du.tf, googleData.Du.tv)
+    var google_login_data = {
+      "username": googleData.Du.tf,
+      "user_email": googleData.Du.tv
+    }
+
+    setLoginData(google_login_data);
+    localStorage.setItem('loginData', JSON.stringify(google_login_data))
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('loginData');
+    setLoginData(null)
+  }
+
   return (
     <div className="App">
-      <header>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-          <a className="navbar-brand">Hospital Application Admin Page!</a>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item active">
-                <Link className="nav-link" to={"/create-user"}>Create User</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/users"}>Users List</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/delete-user"}>Delete User</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/devices"}>Devices</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/manage-devices"}>Manage Devices</Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <Routes>
-              <Route exact path='/' element={<CreateUser/>} />
-              <Route path="/create-user" element={<CreateUser/>} />
-              <Route path="/users" element={<Users/>} />
-              <Route path="/delete-user" element={<DeleteUser/>} />
-              <Route path="/devices" element={<Devices/>} />
-              <Route path="/manage-devices" element={<ManageDevices/>} />
-            </Routes>
-          </div>
+      <header className="App-header">
+        <div>
+          {
+            (loginData && admin_list.includes(loginData.user_email)) ? (
+              <div>
+                <LoggedIn/>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            ):(
+              <div>
+              <h1>Login to Hospital Admin Page</h1>
+              <GoogleLogin 
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              buttonText="Log in with Google"
+              onSuccess={handleLogin}
+              onFailure={handleFailure}
+              cookiePolicy={'single_host_origin'}
+              ></GoogleLogin>
+              </div>
+            )
+          }
         </div>
-      </div>
+      </header>
     </div>
   );
 }
+
 export default App;
-
-
-/*function App() {
-
-  const [data, setData] = useState([{}])
-  useEffect(() => {
-    fetch("/members").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
-      }
-    )
-  }, [])
-
-  return(
-    <div>
-      <p>Axios Tutorial</p>
-      {(typeof data.members === 'undefined') ? (
-        <p>Loading...</p>
-      ) : (
-        data.members.map((member,i) => (
-          <p key={i}>{member}</p>
-        ))
-      )}
-    </div>
-  )
-}
-*/
