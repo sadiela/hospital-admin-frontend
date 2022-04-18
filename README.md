@@ -29,3 +29,7 @@ This repository contains React code for a frontend for the admin module of the [
 10. Remove patients from doctors
 
 
+### Things to Add/Improve
+1. CSS to make the UI look cleaner
+2. Ensure no device overlaps
+3. Deal properly with deleting devices and users
