@@ -25,6 +25,8 @@ This repository contains React code for a frontend for the admin module of the [
 8. Assign devices to users
 9. Assign doctors to patients
 
+You can find a video demo where I test all of the above functionality [here](https://youtu.be/lkPSuwJ-LdM). (Sorry for low audio quality).
+
 ### Things to Add/Improve
 1. CSS to make the UI look cleaner
 2. Ensure no device overlaps
