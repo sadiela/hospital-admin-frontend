@@ -56,10 +56,16 @@ export default class DoctorInfo extends Component {
                 </div>
                 {(this.state.selectedUserData) ? (
                 <div>
-                    <p>ID: {this.state.selectedUserData.userid}</p>
-                    <p>Name: {this.state.selectedUserData.username}</p>
-                    <p>Email: {this.state.selectedUserData.email}</p>
-                    <p>Patients: {this.state.selectedUserData.patients}</p>
+                    <p><strong>ID:</strong> {this.state.selectedUserData.userid}</p>
+                    <p><strong>Name:</strong> {this.state.selectedUserData.username}</p>
+                    <p><strong>Email:</strong> {this.state.selectedUserData.email}</p>
+                    <p><strong>Patients:</strong> </p>
+                    {(this.state.selectedUserData.patients) ? (
+                        this.state.selectedUserData.patients.map((item, index) => (
+                            <p key={index}> {item} </p>)
+                        )) : (
+                        <p>NO PATIENTS</p>
+                    )}
                 </div>
                 ) : (
                 <p></p>

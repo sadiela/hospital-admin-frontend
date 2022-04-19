@@ -56,11 +56,23 @@ export default class PatientInfo extends Component {
                 </div>
                 {(this.state.selectedUserData) ? (
                 <div>
-                    <p>ID: {this.state.selectedUserData.userid}</p>
-                    <p>Name: {this.state.selectedUserData.username}</p>
-                    <p>Email: {this.state.selectedUserData.email}</p>
-                    <p>Devices: {this.state.selectedUserData.devices}</p>
-                    <p>Doctors: {this.state.selectedUserData.doctors}</p>
+                    <p><strong>ID:</strong> {this.state.selectedUserData.userid}</p>
+                    <p><strong>Name:</strong> {this.state.selectedUserData.username}</p>
+                    <p><strong>Email:</strong> {this.state.selectedUserData.email}</p>
+                    <p><strong>Devices:</strong></p>
+                    {(this.state.selectedUserData.devices) ? (
+                        this.state.selectedUserData.devices.map((item, index) => (
+                            <p key={index}> {item} </p>)
+                        )) : (
+                        <p>NO DEVICES ASSIGNED </p>
+                    )}
+                    <p><strong>Doctors:</strong></p>
+                    {(this.state.selectedUserData.doctors) ? (
+                        this.state.selectedUserData.doctors.map((item, index) => (
+                            <p key={index}> {item} </p>)
+                        )) : (
+                        <p>NO DOCTORS ASSIGNED </p>
+                    )}
                 </div>
                 ) : (
                 <p></p>

@@ -81,14 +81,18 @@ export default class ManageDevices extends Component {
     }
 
     onSubmitDelete(e) {
-        axios.post('/device/delete-device/' + this.state.delete_device)
+        e.preventDefault()     
+        console.log(this.state.delete_device)
+        var poststr = '/device/delete-device/' + this.state.delete_device
+        console.log(poststr)
+        axios.post(poststr)
             .then((res) => {
                 console.log(res.data)
             }).catch((error) => {
                 console.log(error)
             });
         this.componentDidMount()
-        this.setState({ deviceid: ''})
+        this.setState({ delete_device: this.state.devices[0].deviceid})
     }
 
     render() {

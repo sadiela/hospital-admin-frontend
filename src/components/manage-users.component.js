@@ -129,15 +129,15 @@ export default class ManageUsers extends Component {
                 <form onSubmit={this.onSubmitNew}>
                     <div className="form-group">
                         <label>Add User Name</label>
-                        <input type="text" value={this.state.username} onChange={this.onChangeUserName} className="form-control" />
+                        <input type="text" value={this.state.newusername} onChange={this.onChangeUserName} className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Add User Email</label>
-                        <input type="text" value={this.state.email} onChange={this.onChangeUserEmail} className="form-control" />
+                        <input type="text" value={this.state.newemail} onChange={this.onChangeUserEmail} className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Add User Role</label>
-                        <input type="number" id="role" min="0" max="2" value={this.state.role} onChange={this.onChangeUserRole} className="form-control" />
+                        <input type="number" id="role" min="0" max="2" value={this.state.newrole} onChange={this.onChangeUserRole} className="form-control" />
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create User" className="btn btn-success btn-block" />
