@@ -11,8 +11,6 @@ This repository contains React code for a frontend for the admin module of the [
 6. **View Devices**: View list of devices
 7. **Assign Patient to Doctor**: Assign a patient to a doctor.
 8. **Assign Devices to Patients**: Link a device from the device database to a particular patient.
-9. **Remove Assignments**: Remove all patients assigned to a doctor, all doctors assigned to a patient, or all devices assigned to a user.
-
 
 ### Tests
 1. Sign on:
@@ -26,8 +24,6 @@ This repository contains React code for a frontend for the admin module of the [
 7. View list of patients for a doctor
 8. Assign devices to users
 9. Assign doctors to patients
-10. Remove patients from doctors
-
 
 ### Things to Add/Improve
 1. CSS to make the UI look cleaner
