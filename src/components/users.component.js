@@ -30,11 +30,12 @@ export default class Users extends Component {
         return (
             <div>
             <p><b>List of All Users</b></p>
+            <p>ID Name Email Role</p>
             {(this.state.usernames.length === 0) ? (
               <p>NO USERS</p>
             ) : (
               this.state.usernames.map((data,i) => (
-                <p key={i}>{data.username} {data.email} {role_key[data.role]}</p>
+                <p key={i}>{data.userid} {data.username} {data.email} {role_key[data.role]}</p>
               ))
             )}
           </div>

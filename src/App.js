@@ -1,66 +1,89 @@
-import {useState} from 'react';
+//import {useState, useEffect} from 'react';
 //import './App.css';
 import GoogleLogin from 'react-google-login'
 import LoggedIn from './LoggedIn';
+import axios from 'axios';
+//import { renderMatches } from 'react-router-dom';
+import React, { Component } from 'react';
 
-function App() {
+export default class App extends Component  {
 
-  const admin_list = ['sadiela@bu.edu']
+  constructor(props) {
+    super(props)
+    this.onHandleFailure = this.onHandleFailure.bind(this);
+    this.onHandleLogin = this.onHandleLogin.bind(this);
+    this.onHandleLogout = this.onHandleLogout.bind(this);
 
-  const [loginData, setLoginData] = useState(
-    localStorage.getItem('loginData')
-    ? JSON.parse(localStorage.getItem('loginData'))
-    : null
-  )
-
-  const handleFailure = (result) => {
-    alert(result);
-  }
-
-  const handleLogin = async (googleData) => {
-    console.log(googleData)
-    console.log(googleData.Du.tf, googleData.Du.tv)
-    var google_login_data = {
-      "username": googleData.Du.tf,
-      "user_email": googleData.Du.tv
+    this.state = {
+      adminlist : [],
+      loginData : ''
     }
-
-    setLoginData(google_login_data);
-    localStorage.setItem('loginData', JSON.stringify(google_login_data))
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('loginData');
-    setLoginData(null)
+  componentDidMount() {
+    axios.get('/admin/people/2')
+        .then((res) => {
+          console.log(res.data)
+          var admin_from_api = res.data.map(d => d.email)
+          console.log(admin_from_api)
+          this.setState({adminList: admin_from_api})
+      }).catch((error) => {
+          console.log(error)
+      });
   }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-          {
-            (loginData && admin_list.includes(loginData.user_email)) ? (
-              <div>
-                <LoggedIn/>
-                <button onClick={handleLogout}>Logout</button>
-              </div>
-            ):(
-              <div>
-              <h1>Login to Hospital Admin Page</h1>
-              <GoogleLogin 
-              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              buttonText="Log in with Google"
-              onSuccess={handleLogin}
-              onFailure={handleFailure}
-              cookiePolicy={'single_host_origin'}
-              ></GoogleLogin>
-              </div>
-            )
-          }
-        </div>
-      </header>
-    </div>
-  );
+  onHandleFailure(e) {
+    alert(e);
+  }
+
+  onHandleLogin(e) {
+    console.log(e)
+    console.log(this.state.adminList)
+    console.log(e.Lu.tf, e.Lu.Bv)
+    var google_login_data = {
+      "username": e.Lu.tf,
+      "user_email": e.Lu.Bv
+    }
+    this.setState({loginData:google_login_data})
+    //setLoginData(google_login_data);
+    //localStorage.setItem('loginData', JSON.stringify(google_login_data))
+  }
+
+
+  onHandleLogout(e) {
+    this.setState({loginData:''})
+    //localStorage.removeItem('loginData');
+    //setLoginData(null)
+  }
+
+  //getAdminList()
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <div>
+            {
+              (this.state.loginData !== '' && this.state.adminList !== [] && this.state.adminList.includes(this.state.loginData.user_email)) ? (
+                <div>
+                  <LoggedIn/>
+                  <button onClick={this.onHandleLogout}>Logout</button>
+                </div>
+              ):(
+                <div>
+                <h1>Login to Hospital Admin Page</h1>
+                <GoogleLogin 
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                buttonText="Log in with Google"
+                onSuccess={this.onHandleLogin}
+                onFailure={this.onHandleFailure}
+                cookiePolicy={'single_host_origin'}
+                ></GoogleLogin>
+                </div>
+              )
+            }
+          </div>
+        </header>
+      </div>
+    );
+  }
 }
-
-export default App;

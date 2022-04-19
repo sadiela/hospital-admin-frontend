@@ -1,7 +1,5 @@
 // Dropdown to choose patient
 // Submit to render patient info
-import CreateUser from './create-user.component';
-import DeleteUser from './delete-user.component';
 import React, { Component } from 'react';
 import axios from 'axios'
 //import CreateUser from './create-user.component';
